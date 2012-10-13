@@ -15,11 +15,13 @@
 #include <fenv.h>
 #endif
 
+#include "game.hxx"
 #include "globals.hxx"
 
 using namespace std;
 
 static SDL_Surface* screen;
+static unsigned screenw, screenh;
 
 static void init(const char*const* argv, unsigned argc);
 static void run();
@@ -51,6 +53,8 @@ static void init(const char*const* argv, unsigned argc) {
   SDL_WM_SetCaption("Tunnelblick", "Tunnelblick");
   const SDL_VideoInfo* vi = SDL_GetVideoInfo();
   vheight = vi->current_h / (float)vi->current_w;
+  screenw = vi->current_w;
+  screenh = vi->current_h;
   screen = SDL_SetVideoMode(vi->current_w, vi->current_h, 0,
                             SDL_OPENGL /* | SDL_FULLSCREEN */);
   if (!screen) {
@@ -70,7 +74,47 @@ static void init(const char*const* argv, unsigned argc) {
 }
 
 void run() {
-  SDL_Delay(4096);
+  Game game;
+  bool paused = false;
+  Uint32 lastUpdate = SDL_GetTicks();
+  while (game.running()) {
+    //Get the current time and determine how much time has elapsed since the
+    //last update, then update lastUpdate
+    Uint32 now = SDL_GetTicks();
+    float elapsed = (now-lastUpdate) / 1000.0f;
+    lastUpdate = now;
+    //If not paused, update the game
+    if (!paused) game.update(elapsed);
+
+    //Draw the game
+    game.configureGL();
+    game.draw();
+    glFinish();
+    SDL_GL_SwapBuffers();
+
+    //Pump events
+    SDL_Event evt;
+    while (SDL_PollEvent(&evt)) {
+      switch (evt.type) {
+      case SDL_QUIT: return;
+      case SDL_KEYDOWN:
+        //Space toggles pause, esc exits
+        if (evt.key.keysym.sym == SDLK_SPACE)
+          paused = !paused;
+        else if (evt.key.keysym.sym == SDLK_ESCAPE)
+          return;
+
+      case SDL_MOUSEMOTION:
+        game.motion(evt.motion.x / (float)screenw,
+                    vheight - (evt.motion.y / (float)screenh)*vheight);
+        break;
+
+      case SDL_MOUSEBUTTONDOWN:
+        game.button(evt.button.button);
+        break;
+      }
+    }
+  }
 }
 
 void shutdown() {

@@ -3,4 +3,5 @@ AM_LDFLAGS=$(SDL_LIBS) $(SDLIMG_LIBS) $(GL_LIBS) $(VORBISFILE_LIBS)
 bin_PROGRAMS=tunnelblick
 tunnelblick_SOURCES= \
   tunnelblick.cxx \
+  game.cxx \
   globals.cxx
