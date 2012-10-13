@@ -1,2 +1,6 @@
+AM_CXXFLAGS=$(SDL_CFLAGS) $(SDLIMG_CFLAGS) $(GL_CFLAGS) $(VORBISFILE_CFLAGS)
+AM_LDFLAGS=$(SDL_LIBS) $(SDLIMG_LIBS) $(GL_LIBS) $(VORBISFILE_LIBS)
 bin_PROGRAMS=tunnelblick
-tunnelblick_SOURCES=tunnelblick.cxx
+tunnelblick_SOURCES= \
+  tunnelblick.cxx \
+  globals.cxx

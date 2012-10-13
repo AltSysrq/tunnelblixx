@@ -20,12 +20,18 @@ PKG_CHECK_MODULES([SDL], [sdl])
 PKG_CHECK_MODULES([SDLIMG], [SDL_image])
 PKG_CHECK_MODULES([GL], [gl])
 PKG_CHECK_MODULES([VORBISFILE], [vorbisfile])
+# We don't really need this test (the C++ compiler does the Right Thing
+# automatically), but autoconf needs to know about libm to test for
+# feenableexcept.
+AC_SEARCH_LIBS([cos], [m])
 
 # Checks for header files.
+AC_CHECK_HEADERS([fenv.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 
 # Checks for library functions.
+AC_CHECK_FUNCS([feenableexcept])
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
