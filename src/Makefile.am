@@ -1,0 +1,2 @@
+bin_PROGRAMS=tunnelblick
+tunnelblick_SOURCES=tunnelblick.cxx
