@@ -19,6 +19,7 @@ AC_PROG_CXX
 PKG_CHECK_MODULES([SDL], [sdl])
 PKG_CHECK_MODULES([SDLIMG], [SDL_image])
 PKG_CHECK_MODULES([GL], [gl])
+PKG_CHECK_MODULES([VORBISFILE], [vorbisfile])
 
 # Checks for header files.
 
