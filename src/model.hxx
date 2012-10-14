@@ -2,6 +2,7 @@
 #define MODEL_HXX_
 
 #include <SDL_opengl.h>
+#include <vector>
 
 #define M_END 0.0f
 #define M_VER 1.0f
@@ -11,7 +12,8 @@
  * Encapsulates a model as an OpenGL display list.
  */
 class Model {
-  GLuint displayList;
+  std::vector<float> data;
+  mutable GLuint displayList;
   float w, h, l;
 
 public:

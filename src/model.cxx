@@ -4,6 +4,7 @@
 
 #include <SDL_opengl.h>
 
+#include <iostream>
 #include <vector>
 #include <cstdarg>
 #include <cfloat>
@@ -14,9 +15,8 @@
 using namespace std;
 
 Model::Model(bool normalise, ...)
-: displayList(glGenLists(1))
+: displayList(0)
 {
-  vector<float> data;
   float minx, maxx, miny, maxy, minz, maxz;
   bool hasExtrema = false;
   va_list val;
@@ -72,17 +72,6 @@ Model::Model(bool normalise, ...)
       }
     }
   }
-
-  //Compile to display list
-  glNewList(displayList, GL_COMPILE);
-  glBegin(GL_TRIANGLES);
-  for (float* i = begin; i != end; i += 4)
-    if (*i == M_VER)
-      glVertex3fv(i+1);
-    else
-      glColor3fv(i+1);
-  glEnd();
-  glEndList();
 }
 
 Model::~Model() {
@@ -90,5 +79,21 @@ Model::~Model() {
 }
 
 void Model::draw() const {
+  if (!displayList) {
+    //Compile to display list
+    displayList = glGenLists(1);
+    cout << displayList << endl;
+    glNewList(displayList, GL_COMPILE);
+    glBegin(GL_TRIANGLES);
+    const float* begin = &data[0], * end = begin+data.size();
+    for (const float* i = begin; i != end; i += 4)
+      if (*i == M_VER)
+        glVertex3fv(i+1);
+      else
+        glColor3fv(i+1);
+    glEnd();
+    glEndList();
+  }
+
   glCallList(displayList);
 }

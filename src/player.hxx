@@ -17,7 +17,7 @@ public:
   virtual void collideWith(GameObject*);
 
   void move(float x);
-  void advance(float z);
+  void advance(float z, float offset);
   void jump();
 };
 
