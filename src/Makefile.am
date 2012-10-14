@@ -8,4 +8,6 @@ tunnelblick_SOURCES= \
   distortion.cxx \
   game_object.cxx \
   game_field.cxx \
+  model.cxx \
+  modelled_object.cxx \
   globals.cxx
