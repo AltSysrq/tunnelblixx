@@ -11,7 +11,7 @@
 using namespace std;
 
 Enemy::Enemy(Game& game_, const Model& model, unsigned hp)
-: ModelledObject(&game_.field, 0, 0, -game.getSpawnDistance(),
+: ModelledObject(&game_.field, 0, 0, -game_.getSpawnDistance(),
                  model, &game_.distortion),
   game(game_),
   hitPoints(hp)

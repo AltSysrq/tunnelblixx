@@ -4,6 +4,7 @@
 #include "tunnel.hxx"
 #include "distortion.hxx"
 #include "game_field.hxx"
+#include "enemy_factory.hxx"
 
 class Player;
 
@@ -14,6 +15,7 @@ public:
   GameField field;
 
 private:
+  EnemyFactory enemyFactory;
   Player* player;
 
   float speed;

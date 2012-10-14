@@ -16,7 +16,8 @@
 using namespace std;
 
 Game::Game()
-: speed(-2.0f)
+: enemyFactory(*this),
+  speed(-2.0f)
 {
   player = new Player(&field, &distortion, getNearClippingPlane(),
                       &playerDeath, this);
@@ -26,6 +27,7 @@ Game::Game()
 Game::~Game() {}
 
 void Game::update(float et) {
+  enemyFactory.update(et, -speed);
   tunnel.update(et);
   field.update(et);
 

@@ -13,4 +13,5 @@ tunnelblick_SOURCES= \
   player.cxx \
   enemy.cxx \
   cactus.cxx \
+  enemy_factory.cxx \
   globals.cxx
