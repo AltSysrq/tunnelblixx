@@ -29,6 +29,13 @@ public:
   /** Enqueues the given object to be spawned after the next update. */
   void add(GameObject*);
 
+  /** Translates all objects by the given Z amount, to keep up with the
+   * player.
+   *
+   * Objects whose Z becomes positive are deleted.
+   */
+  void translateZ(float);
+
   typedef std::list<GameObject*>::const_iterator iterator;
   iterator begin() const;
   iterator end() const;

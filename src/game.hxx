@@ -13,6 +13,8 @@ class Game {
   GameField field;
   Player* player;
 
+  float speed;
+
 public:
   Game();
   ~Game();
@@ -25,6 +27,7 @@ public:
   bool running() const;
 
 private:
+  float getNearClippingPlane() const;
   static void playerDeath(void*);
 };
 

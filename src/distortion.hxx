@@ -21,6 +21,11 @@ public:
    */
   void t(float x, float y, float z) const;
 
+  /**
+   * Translates the Z axis by the given amount, to keep up with the player.
+   */
+  void translateZ(float);
+
 private:
   void xform(float*) const;
 };

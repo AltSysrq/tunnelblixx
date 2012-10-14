@@ -61,9 +61,10 @@ static Model playerModel(
   M_END
 );
 
-Player::Player(GameField* field, const Distortion* dist,
+Player::Player(GameField* field, const Distortion* dist, float offset,
                void (*notifier)(void*), void* notifyee)
-: ModelledObject(field, 0.5f, playerModel.getH()/2, -playerModel.getL()/2-1,
+: ModelledObject(field,
+                 0.5f, playerModel.getH()/2, -playerModel.getL()/2-offset,
                  playerModel, dist),
   vy(0), notifyOnDeath(notifier), notifyObject(notifyee)
 {
@@ -78,8 +79,8 @@ void Player::move(float x) {
   moveTo(x, y, z, true);
 }
 
-void Player::advance(float z, float offset) {
-  moveTo(x, y, z-l/2-offset, true);
+void Player::advance(float shift, float offset) {
+  moveTo(x, y, z+shift+offset, true);
 }
 
 void Player::jump() {

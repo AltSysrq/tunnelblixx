@@ -36,6 +36,18 @@ void GameField::update(float et) {
   toSpawn.clear();
 }
 
+void GameField::translateZ(float amt) {
+  for (list<GameObject*>::iterator it = objects.begin();
+       it != objects.end(); ++it) {
+
+    (*it)->z -= amt;
+    if ((*it)->z > 0) {
+      delete *it;
+      it = objects.erase(it);
+    }
+  }
+}
+
 void GameField::draw() const {
   for (iterator it = begin(); it != end(); ++it)
     (*it)->draw();

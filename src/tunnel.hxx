@@ -56,6 +56,11 @@ public:
   void pulse(float z, unsigned col,
              float r, float g, float b,
              float speed, float delay);
+
+  /**
+   * Translates the tunnel by the given amount, to keep up with the player.
+   */
+  void translateZ(float);
 };
 
 #endif /* TUNNEL_HXX_ */

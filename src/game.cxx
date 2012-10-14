@@ -9,8 +9,13 @@
 #include "player.hxx"
 #include "globals.hxx"
 
-Game::Game() {
-  player = new Player(&field, &distortion, &playerDeath, this);
+#define ACCEL -0.15f
+
+Game::Game()
+: speed(-2.0f)
+{
+  player = new Player(&field, &distortion, getNearClippingPlane(),
+                      &playerDeath, this);
   field.add(player);
 }
 
@@ -19,18 +24,32 @@ Game::~Game() {}
 void Game::update(float et) {
   tunnel.update(et);
   field.update(et);
+
+  float oldNear = getNearClippingPlane();
+  speed += ACCEL*et;
+  float nearDelta = getNearClippingPlane() - oldNear;
+  float shift = speed*et;
+  if (player) {
+    float oldz = player->getZ();
+    player->advance(shift, nearDelta);
+    shift = player->getZ() - oldz + nearDelta;
+  }
+
+  field.translateZ(shift);
+  tunnel.translateZ(shift);
+  distortion.translateZ(shift);
 }
 
 void Game::configureGL() {
   glEnable(GL_FOG);
   glFogi(GL_FOG_MODE, GL_LINEAR);
   glFogf(GL_FOG_DENSITY, 0.25f);
-  glFogf(GL_FOG_START, 1.0f);
-  glFogf(GL_FOG_END, 16.0f);
+  glFogf(GL_FOG_START, getNearClippingPlane());
+  glFogf(GL_FOG_END, 128.0f);
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glFrustum(-1, 1, -vheight, vheight, 1.0f, 128.0f);
+  glFrustum(-1, 1, -vheight, vheight, getNearClippingPlane(), 128.0f);
   glScalef(2.0f, 2.0f, 1);
   glTranslatef(-0.5f, -vheight/2.0f, 0);
   glMatrixMode(GL_MODELVIEW);
@@ -61,4 +80,8 @@ bool Game::running() const {
 
 void Game::playerDeath(void* that) {
   ((Game*)that)->player = NULL;
+}
+
+float Game::getNearClippingPlane() const {
+  return -1.5f/speed;
 }

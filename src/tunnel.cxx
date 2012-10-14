@@ -133,3 +133,11 @@ void Tunnel::pulse(float z, unsigned col,
   QueuedPulse qp = { col, clock + delay, pulse };
   pulseQueue.push(qp);
 }
+
+void Tunnel::translateZ(float amt) {
+  offset -= amt;
+  while (offset >= gridLength)
+    offset -= gridLength;
+  while (offset < 0)
+    offset += gridLength;
+}

@@ -9,7 +9,7 @@ class Player: public ModelledObject {
   void* notifyObject;
 
 public:
-  Player(GameField* field, const Distortion*,
+  Player(GameField* field, const Distortion*, float offset,
          void (*)(void*), void*);
   void kill();
 

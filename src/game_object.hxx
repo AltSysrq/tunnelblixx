@@ -8,6 +8,7 @@ class GameField;
  * game.
  */
 class GameObject {
+  friend class GameField;
 protected:
   float x, y, z, w, h, l;
   /**

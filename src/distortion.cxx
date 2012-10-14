@@ -48,3 +48,5 @@ void Distortion::t(float x, float y, float z) const {
     glRotatef(angle, cross[0], cross[1], cross[2]);
   }
 }
+
+void Distortion::translateZ(float) {}
