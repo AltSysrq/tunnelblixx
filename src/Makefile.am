@@ -10,4 +10,5 @@ tunnelblick_SOURCES= \
   game_field.cxx \
   model.cxx \
   modelled_object.cxx \
+  player.cxx \
   globals.cxx
