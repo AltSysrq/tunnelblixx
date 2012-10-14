@@ -32,18 +32,21 @@ bool GameObject::moveTo(float x, float y, float z, bool force) {
   float cy = (y+this->y)/2;
   float cz = (z+this->z)/2;
 
-  for (GameField::iterator it = field->begin();
-       it != field->end(); ++it) {
-    GameObject* that = *it;
-    if (that != this) {
-      if (overlap(cx, w+dx, that->x, that->w) &&
-          overlap(cy, h+dy, that->y, that->h) &&
-          overlap(cz, l+dz, that->z, that->l)) {
-        if (force) {
-          this->collideWith(that);
-          that->collideWith(this);
-        } else {
-          return false;
+  if (this->isCollideable()) {
+    for (GameField::iterator it = field->begin();
+         it != field->end(); ++it) {
+      GameObject* that = *it;
+      if (that != this) {
+        if (overlap(cx, w+dx, that->x, that->w) &&
+            overlap(cy, h+dy, that->y, that->h) &&
+            overlap(cz, l+dz, that->z, that->l) &&
+            that->isCollideable()) {
+          if (force) {
+            this->collideWith(that);
+            that->collideWith(this);
+          } else {
+            return false;
+          }
         }
       }
     }

@@ -51,6 +51,12 @@ public:
    */
   virtual void collideWithPlayer(Player*) {}
 
+  /**
+   * Returns whether this object can collide with others.
+   * Default returns true.
+   */
+  virtual bool isCollideable() const { return true; }
+
   bool isAlive() const { return alive; }
   float getX() const { return x; }
   float getY() const { return y; }

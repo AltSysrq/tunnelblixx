@@ -37,6 +37,8 @@ Projectile::Projectile(GameField* field, const Distortion* dist,
     swap(z, initz);
   //Make initz relative to z
   initz -= z;
+
+  scanning = false;
 }
 
 void Projectile::update(float et) {
@@ -70,4 +72,8 @@ void Projectile::collideWith(GameObject* that) {
   if (that != parent && scanning) {
     scanning = false;
   }
+}
+
+bool Projectile::isCollideable() const {
+  return scanning;
 }

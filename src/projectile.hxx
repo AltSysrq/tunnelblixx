@@ -23,6 +23,7 @@ public:
   virtual void update(float);
   virtual void draw();
   virtual void collideWith(GameObject*);
+  virtual bool isCollideable() const;
 };
 
 #endif /* PROJECTILE_HXX_ */
