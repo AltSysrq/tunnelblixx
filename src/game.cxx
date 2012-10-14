@@ -32,7 +32,7 @@ void Game::configureGL() {
 
 void Game::draw() {
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-  tunnel.draw();
+  tunnel.draw(distortion);
 }
 
 void Game::motion(float,float) {}

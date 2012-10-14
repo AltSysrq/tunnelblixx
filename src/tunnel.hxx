@@ -4,6 +4,8 @@
 #include <list>
 #include <queue>
 
+class Distortion;
+
 /**
  * Creates a visual grid representing the path along the virtual Z axis. The
  * path and walls are a grid coloured by moving "pulses".
@@ -47,7 +49,7 @@ public:
    */
   void update(float);
   /** Draws the Tunnel. */
-  void draw();
+  void draw(const Distortion&);
   /** Queues a new pulse of the given colour and speed to appear after the
    * given time.
    */

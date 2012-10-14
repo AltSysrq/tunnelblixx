@@ -2,9 +2,11 @@
 #define GAME_HXX_
 
 #include "tunnel.hxx"
+#include "distortion.hxx"
 
 class Game {
   Tunnel tunnel;
+  Distortion distortion;
 
 public:
   Game();

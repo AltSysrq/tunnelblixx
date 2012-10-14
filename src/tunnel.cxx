@@ -12,6 +12,7 @@
 #include <algorithm>
 
 #include "tunnel.hxx"
+#include "distortion.hxx"
 
 using namespace std;
 
@@ -49,7 +50,7 @@ void Tunnel::update(float et) {
   }
 }
 
-void Tunnel::draw() {
+void Tunnel::draw(const Distortion& d) {
   //Reset grid to neutral
   for (unsigned i = 0; i < gridLength; ++i)
     for (unsigned j = 0; j < gridWidth; ++j)
@@ -89,13 +90,13 @@ void Tunnel::draw() {
   for (unsigned z = 0; z < gridLength/2; ++z) {
     for (unsigned x = 0; x < gridWidth; ++x) {
       glColor3fv(grid[(firstFloorTile+z) % gridLength][x]);
-      glVertex3f((x+0)*gsqsz + halfSpace, 0, -((z+0)*gsqlen + halfSpace + zt));
-      glVertex3f((x+1)*gsqsz - halfSpace, 0, -((z+0)*gsqlen + halfSpace + zt));
-      glVertex3f((x+0)*gsqsz + halfSpace, 0, -((z+1)*gsqlen - halfSpace + zt));
+      d.v((x+0)*gsqsz + halfSpace, 0, -((z+0)*gsqlen + halfSpace + zt));
+      d.v((x+1)*gsqsz - halfSpace, 0, -((z+0)*gsqlen + halfSpace + zt));
+      d.v((x+0)*gsqsz + halfSpace, 0, -((z+1)*gsqlen - halfSpace + zt));
 
-      glVertex3f((x+1)*gsqsz - halfSpace, 0, -((z+0)*gsqlen + halfSpace + zt));
-      glVertex3f((x+0)*gsqsz + halfSpace, 0, -((z+1)*gsqlen - halfSpace + zt));
-      glVertex3f((x+1)*gsqsz - halfSpace, 0, -((z+1)*gsqlen - halfSpace + zt));
+      d.v((x+1)*gsqsz - halfSpace, 0, -((z+0)*gsqlen + halfSpace + zt));
+      d.v((x+0)*gsqsz + halfSpace, 0, -((z+1)*gsqlen - halfSpace + zt));
+      d.v((x+1)*gsqsz - halfSpace, 0, -((z+1)*gsqlen - halfSpace + zt));
     }
   }
 
@@ -106,13 +107,13 @@ void Tunnel::draw() {
       glColor3fv(grid[(firstWallTile + (gridLength/2-z-1)) % gridLength][i]);
       float x = (i < gridWidth / 2? 0 : 1);
       float y = 2*(i < gridWidth / 2? i*gsqsz : (gridWidth-i-1)*gsqsz);
-      glVertex3f(x, y +   0.0f*2 + halfSpace, -((z+0)*gsqlen + halfSpace + zt));
-      glVertex3f(x, y + gsqsz*2 - halfSpace, -((z+0)*gsqlen + halfSpace + zt));
-      glVertex3f(x, y +   0.0f*2 + halfSpace, -((z+1)*gsqlen - halfSpace + zt));
+      d.v(x, y +   0.0f*2 + halfSpace, -((z+0)*gsqlen + halfSpace + zt));
+      d.v(x, y + gsqsz*2 - halfSpace, -((z+0)*gsqlen + halfSpace + zt));
+      d.v(x, y +   0.0f*2 + halfSpace, -((z+1)*gsqlen - halfSpace + zt));
 
-      glVertex3f(x, y + gsqsz*2 - halfSpace, -((z+0)*gsqlen + halfSpace + zt));
-      glVertex3f(x, y +   0.0f*2 + halfSpace, -((z+1)*gsqlen - halfSpace + zt));
-      glVertex3f(x, y + gsqsz*2 - halfSpace, -((z+1)*gsqlen - halfSpace + zt));
+      d.v(x, y + gsqsz*2 - halfSpace, -((z+0)*gsqlen + halfSpace + zt));
+      d.v(x, y +   0.0f*2 + halfSpace, -((z+1)*gsqlen - halfSpace + zt));
+      d.v(x, y + gsqsz*2 - halfSpace, -((z+1)*gsqlen - halfSpace + zt));
     }
   }
 
