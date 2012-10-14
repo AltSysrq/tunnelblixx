@@ -37,7 +37,7 @@ void Game::update(float et) {
 
   field.translateZ(shift);
   tunnel.translateZ(shift);
-  distortion.translateZ(shift);
+  distortion.translateZ(shift, -speed);
 }
 
 void Game::configureGL() {

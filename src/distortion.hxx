@@ -1,11 +1,21 @@
 #ifndef DISTORTION_HXX_
 #define DISTORTION_HXX_
 
+#include <list>
+
 /**
  * Transforms the world according to the logical z coordinate, to make the
  * tunnel more interesting.
  */
 class Distortion {
+  struct Section {
+    float distanceLeft, roll, pitch, yaw;
+    Section mutate(float);
+  };
+
+  std::list<Section> sections;
+  float convulsionMult;
+
 public:
   Distortion();
 
@@ -24,10 +34,11 @@ public:
   /**
    * Translates the Z axis by the given amount, to keep up with the player.
    */
-  void translateZ(float);
+  void translateZ(float off, float violence);
 
 private:
   void xform(float*) const;
+  void refill(float);
 };
 
 #endif /* DISTORTION_HXX_ */
