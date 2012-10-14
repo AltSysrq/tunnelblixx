@@ -135,7 +135,7 @@ void Tunnel::pulse(float z, unsigned col,
 }
 
 void Tunnel::translateZ(float amt) {
-  offset -= amt;
+  offset -= amt / gsqlen;
   while (offset >= gridLength)
     offset -= gridLength;
   while (offset < 0)
