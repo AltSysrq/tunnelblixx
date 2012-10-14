@@ -8,9 +8,12 @@
 class Player;
 
 class Game {
+public:
   Tunnel tunnel;
   Distortion distortion;
   GameField field;
+
+private:
   Player* player;
 
   float speed;
@@ -26,6 +29,7 @@ public:
   void button(unsigned);
   bool running() const;
   float getSpawnDistance() const;
+  float getPlayerX() const;
 
 private:
   float getNearClippingPlane() const;

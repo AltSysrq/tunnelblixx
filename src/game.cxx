@@ -93,3 +93,7 @@ float Game::getNearClippingPlane() const {
 float Game::getSpawnDistance() const {
   return min(8*-speed, Tunnel::gridLength*Tunnel::gsqlen/2);
 }
+
+float Game::getPlayerX() const {
+  return player? player->getX() : 0.5f;
+}
