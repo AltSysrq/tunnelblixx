@@ -5,11 +5,15 @@
 #include <SDL_opengl.h>
 #include <SDL.h>
 
+#include <algorithm>
+
 #include "game.hxx"
 #include "player.hxx"
 #include "globals.hxx"
 
 #define ACCEL -0.15f
+
+using namespace std;
 
 Game::Game()
 : speed(-2.0f)
@@ -44,8 +48,8 @@ void Game::configureGL() {
   glEnable(GL_FOG);
   glFogi(GL_FOG_MODE, GL_LINEAR);
   glFogf(GL_FOG_DENSITY, 0.25f);
-  glFogf(GL_FOG_START, getNearClippingPlane());
-  glFogf(GL_FOG_END, 128.0f);
+  glFogf(GL_FOG_START, max(1.0f, getNearClippingPlane()));
+  glFogf(GL_FOG_END, max(1.1f, 1.1f*getSpawnDistance()));
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -84,4 +88,8 @@ void Game::playerDeath(void* that) {
 
 float Game::getNearClippingPlane() const {
   return -1.5f/speed;
+}
+
+float Game::getSpawnDistance() const {
+  return min(8*-speed, Tunnel::gridLength*Tunnel::gsqlen/2);
 }

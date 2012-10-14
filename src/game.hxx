@@ -25,6 +25,7 @@ public:
   void motion(float,float);
   void button(unsigned);
   bool running() const;
+  float getSpawnDistance() const;
 
 private:
   float getNearClippingPlane() const;
