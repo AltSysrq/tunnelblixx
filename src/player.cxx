@@ -2,8 +2,10 @@
 #include <config.h>
 #endif
 
+#include "projectile.hxx"
 #include "player.hxx"
 #include "model.hxx"
+#include "game_field.hxx"
 
 #define HW 0.1f
 #define HH 0.075f
@@ -66,7 +68,8 @@ Player::Player(GameField* field, const Distortion* dist, float offset,
 : ModelledObject(field,
                  0.5f, playerModel.getH()/2, -playerModel.getL()/2-offset,
                  playerModel, dist),
-  vy(0), notifyOnDeath(notifier), notifyObject(notifyee)
+  vy(0), notifyOnDeath(notifier), notifyObject(notifyee),
+  timeUntilShot(0.5f)
 {
 }
 
@@ -91,6 +94,13 @@ void Player::jump() {
 void Player::update(float et) {
   vy += GRAVITY*et;
   moveTo(x, y+vy*et, z, true);
+
+  timeUntilShot -= et;
+  if (timeUntilShot < 0) {
+    field->add(new Projectile(field, distortion, this,
+                              x, y, z, -1));
+    timeUntilShot += 0.333f;
+  }
 }
 
 void Player::collideWith(GameObject* go) {

@@ -66,6 +66,7 @@ static void init(const char*const* argv, unsigned argc) {
   //Configure OpenGL
   glViewport(0, 0, vi->current_w, vi->current_h);
   glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_DEPTH_TEST);
 
   //Enable floating-point exceptions if possible, unless debugging is disabled.

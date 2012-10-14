@@ -8,6 +8,9 @@ class Player: public ModelledObject {
   void (*notifyOnDeath)(void*);
   void* notifyObject;
 
+  //Delete later when music-based shot timing is used
+  float timeUntilShot;
+
 public:
   Player(GameField* field, const Distortion*, float offset,
          void (*)(void*), void*);
