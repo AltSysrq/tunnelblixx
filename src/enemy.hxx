@@ -22,6 +22,7 @@ protected:
 
 public:
   virtual void collideWith(GameObject*);
+  virtual void collideWithPlayer(Player*);
 
 protected:
   virtual const float* getColour() const = 0;

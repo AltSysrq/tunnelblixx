@@ -2,6 +2,7 @@
 #define GAME_OBJECT_HXX_
 
 class GameField;
+class Player;
 
 /**
  * Encapuslates the basic data and operations for arbitrary objects within the
@@ -43,6 +44,12 @@ public:
    * Notifies the object that it has collided with the given other GameObject.
    */
   virtual void collideWith(GameObject*) = 0;
+  /**
+   * Notifies the object that it has collided with the player.
+   *
+   * Default does nothing.
+   */
+  virtual void collideWithPlayer(Player*) {}
 
   bool isAlive() const { return alive; }
   float getX() const { return x; }

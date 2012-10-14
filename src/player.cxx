@@ -93,4 +93,6 @@ void Player::update(float et) {
   moveTo(x, y+vy*et, z, true);
 }
 
-void Player::collideWith(GameObject*) {}
+void Player::collideWith(GameObject* go) {
+  go->collideWithPlayer(this);
+}

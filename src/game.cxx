@@ -38,7 +38,8 @@ void Game::update(float et) {
   if (player) {
     float oldz = player->getZ();
     player->advance(shift, nearDelta);
-    shift = player->getZ() - oldz + nearDelta;
+    if (player)
+      shift = player->getZ() - oldz + nearDelta;
   }
 
   field.translateZ(shift);

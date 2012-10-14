@@ -7,6 +7,7 @@
 
 #include "enemy.hxx"
 #include "game.hxx"
+#include "player.hxx"
 
 using namespace std;
 
@@ -24,3 +25,6 @@ Enemy::Enemy(Game& game_, const Model& model, unsigned hp)
 }
 
 void Enemy::collideWith(GameObject*) {}
+void Enemy::collideWithPlayer(Player* p) {
+  p->kill();
+}
