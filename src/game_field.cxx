@@ -2,6 +2,8 @@
 #include <config.h>
 #endif
 
+#include <SDL_opengl.h>
+
 #include <list>
 #include <algorithm>
 
@@ -50,7 +52,15 @@ void GameField::translateZ(float amt) {
 
 void GameField::draw() const {
   for (iterator it = begin(); it != end(); ++it)
-    (*it)->draw();
+    if ((*it)->isOpaque())
+      (*it)->draw();
+
+  //Draw semitransparent objects
+  glDepthMask(0);
+  for (iterator it = begin(); it != end(); ++it)
+    if (!(*it)->isOpaque())
+      (*it)->draw();
+  glDepthMask(1);
 }
 
 void GameField::add(GameObject* go) {

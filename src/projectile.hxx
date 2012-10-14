@@ -24,6 +24,7 @@ public:
   virtual void draw();
   virtual void collideWith(GameObject*);
   virtual bool isCollideable() const;
+  virtual bool isOpaque() const { return true; }
 };
 
 #endif /* PROJECTILE_HXX_ */

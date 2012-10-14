@@ -57,6 +57,15 @@ public:
    */
   virtual bool isCollideable() const { return true; }
 
+  /**
+   * Returns whether this object is opaque.
+   * Semitransparent objects are drawn in a separate pass, with the
+   * depth-buffer read-only.
+   *
+   * Default returns true.
+   */
+  virtual bool isOpaque() const { return true; }
+
   bool isAlive() const { return alive; }
   float getX() const { return x; }
   float getY() const { return y; }
