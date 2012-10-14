@@ -41,8 +41,10 @@ void Tunnel::update(float et) {
   }
 
   //Update pulses
-  for (list<Pulse>& llp: pulses) {
-    for (Pulse& p: llp) {
+  for (unsigned col = 0; col < gridWidth; ++col) {
+    for (list<Pulse>::iterator it = pulses[col].begin();
+         it != pulses[col].end(); ++it) {
+      Pulse& p(*it);
       p.coord += p.speed * et;
       while (p.coord < 0)           p.coord += gridLength;
       while (p.coord >= gridLength) p.coord -= gridLength;
@@ -59,7 +61,9 @@ void Tunnel::draw(const Distortion& d) {
 
   //Add in pulses
   for (unsigned col = 0; col < gridWidth; ++col) {
-    for (const Pulse& p: pulses[col]) {
+    for (list<Pulse>::const_iterator it = pulses[col].begin();
+         it != pulses[col].end(); ++it) {
+      const Pulse& p(*it);
       unsigned lower = (unsigned)floor(p.coord);
       unsigned upper = (unsigned)ceil(p.coord);
       if (upper == gridLength)

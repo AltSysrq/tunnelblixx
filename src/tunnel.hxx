@@ -12,10 +12,10 @@ class Distortion;
  */
 class Tunnel {
 public:
-  static constexpr unsigned gridWidth = 4;
-  static constexpr unsigned gridLength = 256;
-  static constexpr float gsqsz = 1.0f / gridWidth;
-  static constexpr float gsqlen = gsqsz*2;
+  static const unsigned gridWidth = 4;
+  static const unsigned gridLength = 256;
+  static const float gsqsz = 0.25f; //1.0f / gridWidth
+  static const float gsqlen = 0.5f; //gsqsz / 2.0f
 
 private:
   float grid[gridLength][gridWidth][3];
