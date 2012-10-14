@@ -3,10 +3,12 @@
 
 #include "tunnel.hxx"
 #include "distortion.hxx"
+#include "game_field.hxx"
 
 class Game {
   Tunnel tunnel;
   Distortion distortion;
+  GameField field;
 
 public:
   Game();
