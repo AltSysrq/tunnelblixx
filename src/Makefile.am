@@ -12,4 +12,5 @@ tunnelblick_SOURCES= \
   modelled_object.cxx \
   player.cxx \
   enemy.cxx \
+  cactus.cxx \
   globals.cxx

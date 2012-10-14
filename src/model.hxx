@@ -28,6 +28,19 @@ public:
    */
   Model(bool normalise, ...);
 
+  /**
+   * Like Model(bool,...), but uses an explicit array.
+   */
+  Model(const float*, bool normalise);
+
+  /**
+   * Like Model(const float*, bool), but calls the given function to populate
+   * the internal vector.
+   * This avoids a copy, and eliminates the need for an explicit M_END. (In
+   * fact, the function MUST NOT add an M_END.)
+   */
+  Model(void (*)(std::vector<float>&), bool normalise);
+
   ~Model();
 
   /** Draws the model. */
@@ -39,6 +52,9 @@ public:
   float getH() const { return h; }
   /** Returns the length of the model. */
   float getL() const { return l; }
+
+private:
+  void construct(bool);
 };
 
 #endif /* MODEL_HXX_ */

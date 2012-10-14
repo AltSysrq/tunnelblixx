@@ -16,8 +16,6 @@ using namespace std;
 Model::Model(bool normalise, ...)
 : displayList(0)
 {
-  float minx, maxx, miny, maxy, minz, maxz;
-  bool hasExtrema = false;
   va_list val;
 
   //Read in the data
@@ -33,7 +31,32 @@ Model::Model(bool normalise, ...)
     }
   } while (f != M_END);
   va_end(val);
+  construct(normalise);
+}
 
+Model::Model(const float* data, bool normalise)
+: displayList(0)
+{
+  const float* end = data;
+  //Find the end of the data
+  while (*end != M_END) end += 4;
+
+  //Copy data into our area
+  this->data.assign(data, end);
+
+  construct(normalise);
+}
+
+Model::Model(void (*populate)(vector<float>&), bool normalise)
+: displayList(0)
+{
+  populate(data);
+  construct(normalise);
+}
+
+void Model::construct(bool normalise) {
+  float minx, maxx, miny, maxy, minz, maxz;
+  bool hasExtrema = false;
   float* begin = &data[0], * end = begin+data.size();
   //Get the dimensions
   for (float* i = begin; i != end; i += 4) {

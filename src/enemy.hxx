@@ -22,6 +22,12 @@ protected:
 
 public:
   virtual void collideWith(GameObject*);
+
+protected:
+  virtual const float* getColour() const = 0;
+  virtual float getPulseSpeed() const = 0;
+  virtual unsigned getAward() const = 0;
+  virtual const char* getDeathSound() const = 0;
 };
 
 #endif /* ENEMY_HXX_ */
