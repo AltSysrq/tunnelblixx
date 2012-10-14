@@ -4,7 +4,6 @@
 
 #include <SDL_opengl.h>
 
-#include <iostream>
 #include <vector>
 #include <cstdarg>
 #include <cfloat>
@@ -82,7 +81,6 @@ void Model::draw() const {
   if (!displayList) {
     //Compile to display list
     displayList = glGenLists(1);
-    cout << displayList << endl;
     glNewList(displayList, GL_COMPILE);
     glBegin(GL_TRIANGLES);
     const float* begin = &data[0], * end = begin+data.size();
