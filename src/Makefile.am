@@ -6,4 +6,6 @@ tunnelblick_SOURCES= \
   game.cxx \
   tunnel.cxx \
   distortion.cxx \
+  game_object.cxx \
+  game_field.cxx \
   globals.cxx
