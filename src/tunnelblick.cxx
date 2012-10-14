@@ -10,6 +10,7 @@
 #include <ctime>
 #include <iostream>
 #include <cstdio>
+#include <memory>
 
 #ifdef HAVE_FENV_H
 #include <fenv.h>
@@ -74,7 +75,8 @@ static void init(const char*const* argv, unsigned argc) {
 }
 
 void run() {
-  Game game;
+  auto_ptr<Game> gamePtr(new Game);
+  Game& game(*gamePtr);
   bool paused = false;
   Uint32 lastUpdate = SDL_GetTicks();
   while (game.running()) {
@@ -103,6 +105,7 @@ void run() {
           paused = !paused;
         else if (evt.key.keysym.sym == SDLK_ESCAPE)
           return;
+        break;
 
       case SDL_MOUSEMOTION:
         game.motion(evt.motion.x / (float)screenw,

@@ -2,6 +2,7 @@
 #include <config.h>
 #endif
 
+#include <iostream>
 #include <SDL_opengl.h>
 
 #include "modelled_object.hxx"
@@ -11,7 +12,7 @@
 ModelledObject::ModelledObject(GameField* field, float x, float y, float z,
                                const Model& model_, const Distortion* dist)
 : GameObject(field, x, y, z, model_.getW(), model_.getH(), model_.getL()),
-  model(&model_), distortion(dist)
+  model(&model_), distortion(dist), rotation(0)
 {
 }
 

@@ -5,10 +5,13 @@
 #include "distortion.hxx"
 #include "game_field.hxx"
 
+class Player;
+
 class Game {
   Tunnel tunnel;
   Distortion distortion;
   GameField field;
+  Player* player;
 
 public:
   Game();
@@ -20,6 +23,9 @@ public:
   void motion(float,float);
   void button(unsigned);
   bool running() const;
+
+private:
+  static void playerDeath(void*);
 };
 
 #endif /* GAME_HXX_ */

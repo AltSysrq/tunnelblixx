@@ -91,3 +91,5 @@ void Player::update(float et) {
   vy += GRAVITY*et;
   moveTo(x, y+vy*et, z, true);
 }
+
+void Player::collideWith(GameObject*) {}

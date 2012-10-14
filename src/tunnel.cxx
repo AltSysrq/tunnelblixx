@@ -16,7 +16,9 @@
 
 using namespace std;
 
-Tunnel::Tunnel() {
+Tunnel::Tunnel()
+: offset(0), clock(0)
+{
   //Create initial pulses
   for (unsigned off = 0; off < gridLength; off += 32) {
     for (unsigned i = 0; i < gridWidth; ++i) {

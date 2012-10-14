@@ -3,15 +3,22 @@
 #endif
 
 #include <SDL_opengl.h>
+#include <SDL.h>
 
 #include "game.hxx"
+#include "player.hxx"
 #include "globals.hxx"
 
-Game::Game() {}
+Game::Game() {
+  player = new Player(&field, &distortion, &playerDeath, this);
+  field.add(player);
+}
+
 Game::~Game() {}
 
 void Game::update(float et) {
   tunnel.update(et);
+  field.update(et);
 }
 
 void Game::configureGL() {
@@ -33,10 +40,25 @@ void Game::configureGL() {
 void Game::draw() {
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
   tunnel.draw(distortion);
+  field.draw();
 }
 
-void Game::motion(float,float) {}
-void Game::button(unsigned) {}
+void Game::motion(float x,float) {
+  if (player)
+    player->move(x);
+}
+
+void Game::button(unsigned button) {
+  if (player) {
+    if (button == SDL_BUTTON_LEFT)
+      player->jump();
+  }
+}
+
 bool Game::running() const {
-  return true;
+  return !!player;
+}
+
+void Game::playerDeath(void* that) {
+  ((Game*)that)->player = NULL;
 }

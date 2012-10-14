@@ -14,6 +14,7 @@ public:
   void kill();
 
   virtual void update(float et);
+  virtual void collideWith(GameObject*);
 
   void move(float x);
   void advance(float z);

@@ -43,6 +43,7 @@ Model::Model(bool normalise, ...)
         minx = maxx = i[1];
         miny = maxy = i[2];
         minz = maxz = i[3];
+        hasExtrema = true;
       } else {
         minx = min(minx, i[1]);
         maxx = max(maxx, i[1]);
@@ -74,11 +75,13 @@ Model::Model(bool normalise, ...)
 
   //Compile to display list
   glNewList(displayList, GL_COMPILE);
+  glBegin(GL_TRIANGLES);
   for (float* i = begin; i != end; i += 4)
     if (*i == M_VER)
       glVertex3fv(i+1);
     else
       glColor3fv(i+1);
+  glEnd();
   glEndList();
 }
 
