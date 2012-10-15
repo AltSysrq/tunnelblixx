@@ -30,6 +30,7 @@ Mixer::Mixer() {
          << SDL_GetError() << endl;
   } else {
     enabled = true;
+    pause(false);
   }
 }
 

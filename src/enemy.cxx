@@ -9,6 +9,8 @@
 #include "enemy.hxx"
 #include "game.hxx"
 #include "player.hxx"
+#include "mixer.hxx"
+#include "sound_effect.hxx"
 
 using namespace std;
 
@@ -38,8 +40,8 @@ void Enemy::collideWithProjectile(Projectile*) {
     //Score
     //game.addScore(getAward());
     //Play sound
-    //SoundEffect::play(getDeathSound(), game.audioPlayer,
-    //                  (short)(0x7FFF / max(1, -z)));
+    SoundEffect::play(game.mixer, getDeathSound(),
+                      (short)(0x7FFF / max(1.0f, -z/10.0f)));
     //Spawn confetti
     const float* colour = getColour();
     //field.add(new Confetti(field, x, y, z, colour[0], colour[1], colour[2],
