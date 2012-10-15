@@ -5,6 +5,7 @@
 #include "distortion.hxx"
 #include "game_field.hxx"
 #include "enemy_factory.hxx"
+#include "mixer.hxx"
 
 class Player;
 
@@ -13,6 +14,7 @@ public:
   Tunnel tunnel;
   Distortion distortion;
   GameField field;
+  Mixer mixer;
 
 private:
   EnemyFactory enemyFactory;
