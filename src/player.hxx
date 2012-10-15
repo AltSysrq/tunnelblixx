@@ -4,9 +4,12 @@
 #include "modelled_object.hxx"
 
 class Player: public ModelledObject {
+  friend class Game;
+
   float vy;
   void (*notifyOnDeath)(void*);
   void* notifyObject;
+  float shotSpeed;
 
   //Delete later when music-based shot timing is used
   float timeUntilShot;

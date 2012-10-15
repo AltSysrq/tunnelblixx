@@ -13,20 +13,20 @@
 
 using namespace std;
 
-#define MAX_LEN 64.0f
+#define MAX_LEN 16.0f
 #define SEG_SZ 0.25f
-#define RETRACT_SPEED 30.0f
 
 Projectile::Projectile(GameField* field, const Distortion* dist,
                        const GameObject* parent_,
                        float x_, float y_, float z_,
-                       float direction_)
+                       float direction_, float speed_)
 : GameObject(field, x_, y_, z_, radius, radius, radius),
   distortion(dist),
   parent(parent_),
   direction(direction_),
   alpha(1.0f),
   initz(z_),
+  speed(speed_),
   scanning(true)
 {
   //Scan ahead (up to MAX_LEN) for objects to collide with
@@ -50,12 +50,12 @@ void Projectile::update(float et) {
   //Retract beam
   if (direction > 0) {
     //z < z+initz, increase z and decrease initz
-    z += RETRACT_SPEED*et;
-    initz -= RETRACT_SPEED*et;
+    z += speed*et;
+    initz -= speed*et;
     if (initz <= 0) alive = false;
   } else {
     //z < z+initz, decrease initz
-    initz -= RETRACT_SPEED*et;
+    initz -= speed*et;
     if (initz <= 0) alive = false;
   }
 }
@@ -76,6 +76,11 @@ void Projectile::draw() {
     distortion->v(x, y-radius, off);
     distortion->v(x, y+radius, off);
     distortion->v(x, y+radius, off+len);
+    distortion->v(x, y-radius, off+len);
+
+    distortion->v(x-radius, y, off+len);
+    distortion->v(x, y+radius, off+len);
+    distortion->v(x+radius, y, off+len);
     distortion->v(x, y-radius, off+len);
   }
   glEnd();

@@ -11,6 +11,7 @@ class Projectile: public GameObject {
   float direction;
   float alpha;
   float initz;
+  float speed;
   bool scanning;
 
 public:
@@ -18,7 +19,7 @@ public:
 
   Projectile(GameField*, const Distortion*, const GameObject* parent,
              float x, float y, float z,
-             float direction);
+             float direction, float speed);
 
   virtual void update(float);
   virtual void draw();

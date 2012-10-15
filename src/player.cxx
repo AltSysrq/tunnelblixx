@@ -69,6 +69,7 @@ Player::Player(GameField* field, const Distortion* dist, float offset,
                  0.5f, playerModel.getH()/2, -playerModel.getL()/2-offset,
                  playerModel, dist),
   vy(0), notifyOnDeath(notifier), notifyObject(notifyee),
+  shotSpeed(0.0f),
   timeUntilShot(0.5f)
 {
 }
@@ -98,7 +99,7 @@ void Player::update(float et) {
   timeUntilShot -= et;
   if (timeUntilShot < 0) {
     field->add(new Projectile(field, distortion, this,
-                              x, y, z, -1));
+                              x, y, z, -1, shotSpeed));
     timeUntilShot += 0.333f;
   }
 }

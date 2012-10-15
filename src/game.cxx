@@ -36,6 +36,8 @@ void Game::update(float et) {
   float nearDelta = getNearClippingPlane() - oldNear;
   float shift = speed*et;
   if (player) {
+    player->shotSpeed = -speed;
+
     float oldz = player->getZ();
     player->advance(shift, nearDelta);
     if (player)
