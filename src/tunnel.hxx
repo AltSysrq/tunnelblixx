@@ -34,7 +34,7 @@ private:
       return when == that.when;
     }
     bool operator<(const QueuedPulse& that) const {
-      return when < that.when;
+      return when > that.when;
     }
   };
 

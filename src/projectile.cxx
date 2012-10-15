@@ -84,6 +84,7 @@ void Projectile::draw() {
 void Projectile::collideWith(GameObject* that) {
   if (that != parent && scanning) {
     scanning = false;
+    that->collideWithProjectile(this);
   }
 }
 

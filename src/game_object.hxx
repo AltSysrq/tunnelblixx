@@ -3,6 +3,7 @@
 
 class GameField;
 class Player;
+class Projectile;
 
 /**
  * Encapuslates the basic data and operations for arbitrary objects within the
@@ -50,6 +51,12 @@ public:
    * Default does nothing.
    */
   virtual void collideWithPlayer(Player*) {}
+  /**
+   * Notifies the object that it has collided with a projectile.
+   *
+   * Default does nothing.
+   */
+  virtual void collideWithProjectile(Projectile*) {}
 
   /**
    * Returns whether this object can collide with others.
