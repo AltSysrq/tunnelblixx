@@ -13,8 +13,9 @@
 
 using namespace std;
 
-#define MAX_LEN 16.0f
+#define MAX_LEN 64.0f
 #define SEG_SZ 0.25f
+#define RETRACT_SPEED 30.0f
 
 Projectile::Projectile(GameField* field, const Distortion* dist,
                        const GameObject* parent_,
@@ -42,9 +43,21 @@ Projectile::Projectile(GameField* field, const Distortion* dist,
 }
 
 void Projectile::update(float et) {
-  //Fade out in half a second
-  alpha -= et*2.0f;
+  //Fade out in a quarter second
+  alpha -= et*4.0f;
   alive = (alpha > 0);
+
+  //Retract beam
+  if (direction > 0) {
+    //z < z+initz, increase z and decrease initz
+    z += RETRACT_SPEED*et;
+    initz -= RETRACT_SPEED*et;
+    if (initz <= 0) alive = false;
+  } else {
+    //z < z+initz, decrease initz
+    initz -= RETRACT_SPEED*et;
+    if (initz <= 0) alive = false;
+  }
 }
 
 void Projectile::draw() {
