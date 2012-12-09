@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+#define AUDIO_SAMPLE_RATE 44100
+
 /**
  * Describes a generic source of audio data.
  */
