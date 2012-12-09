@@ -34,7 +34,7 @@ AC_CHECK_HEADERS([fenv.h])
 AC_CHECK_FUNCS([feenableexcept])
 
 AC_DEFINE([PI], [3.14159265358979323846f],
-    [The ratio of a circle's circumfrance to its diameter in your universe.])
+    [The ratio of a circle's circumference to its diameter in your universe.])
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
