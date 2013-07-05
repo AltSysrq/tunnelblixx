@@ -18,4 +18,5 @@ tunnelblick_SOURCES= \
   mixer.cxx \
   sound_effect.cxx \
   music_player.cxx \
+  vorbis_decoder.cxx \
   globals.cxx

@@ -10,6 +10,7 @@
 
 #include "music_player.hxx"
 #include "audio_source.hxx"
+#include "vorbis_decoder.hxx"
 
 using namespace std;
 
@@ -100,6 +101,7 @@ struct {
   const char* extension;
   MusicDecoder* (*open)(const char*);
 } static decoders[] = {
+  { "ogg", openVorbisDecoder },
   { NULL, NULL }
 };
 
