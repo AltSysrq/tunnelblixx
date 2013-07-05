@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <cstring>
+#include <cmath>
 
 #include "music_player.hxx"
 #include "audio_source.hxx"
@@ -155,6 +156,12 @@ signed MusicPlayer::getAudio(Sint16* dst, unsigned len) {
     delete decoder;
     decoder = NULL;
     ret = 0;
+  } else {
+    /* Determine amplitude and notify callback */
+    float amp = 0;
+    for (unsigned i = 0; i < (unsigned)ret; ++i)
+      amp += fabs(dst[i] / (float)ret);
+    amplitudeCallback(callbackUserdata, amp / 32768.0f);
   }
 
   return ret;

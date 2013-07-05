@@ -148,3 +148,7 @@ void Distortion::refill(float violence) {
   while (sections.size() < NUM_SECTIONS)
     sections.push_back(sections.back().mutate(violence));
 }
+
+void Distortion::setConvulsionMult(float mult) {
+  convulsionMult = mult;
+}

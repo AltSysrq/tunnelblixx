@@ -13,6 +13,8 @@
 #include "music_player.hxx"
 
 #define ACCEL -0.15f
+#define MIN_CONV 0.5f
+#define MAX_CONV 2.5f
 
 using namespace std;
 
@@ -104,11 +106,14 @@ float Game::getPlayerX() const {
   return player? player->getX() : 0.5f;
 }
 
-static void amplitudeCallback(void* distortionVoid, float amp) {
-  /* TODO: Actually give this to the distortion */
+static void amplitudeCallback(void* thisVoid, float amp) {
+  ((Game*)thisVoid)->amplitude(amp);
+}
+
+void Game::amplitude(float amp) {
+  distortion.setConvulsionMult(amp*(MAX_CONV - MIN_CONV) + MIN_CONV);
 }
 
 void Game::startMusic(const char*const* list, unsigned len) {
-  mixer.play(new MusicPlayer(list, len, amplitudeCallback, &distortion),
-             0x7FFF);
+  mixer.play(new MusicPlayer(list, len, amplitudeCallback, this), 0x7FFF);
 }

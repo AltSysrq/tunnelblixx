@@ -37,6 +37,8 @@ public:
 
   void startMusic(const char*const*, unsigned);
 
+  void amplitude(float);
+
 private:
   float getNearClippingPlane() const;
   static void playerDeath(void*);

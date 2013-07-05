@@ -36,6 +36,11 @@ public:
    */
   void translateZ(float off, float violence);
 
+  /**
+   * Sets the current convulsion multiplier to the value given.
+   */
+  void setConvulsionMult(float);
+
 private:
   void xform(float*) const;
   void refill(float);
