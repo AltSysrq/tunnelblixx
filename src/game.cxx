@@ -10,6 +10,7 @@
 #include "game.hxx"
 #include "player.hxx"
 #include "globals.hxx"
+#include "music_player.hxx"
 
 #define ACCEL -0.15f
 
@@ -101,4 +102,13 @@ float Game::getSpawnDistance() const {
 
 float Game::getPlayerX() const {
   return player? player->getX() : 0.5f;
+}
+
+static void amplitudeCallback(void* distortionVoid, float amp) {
+  /* TODO: Actually give this to the distortion */
+}
+
+void Game::startMusic(const char*const* list, unsigned len) {
+  mixer.play(new MusicPlayer(list, len, amplitudeCallback, &distortion),
+             0x7FFF);
 }

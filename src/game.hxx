@@ -35,6 +35,8 @@ public:
   float getSpawnDistance() const;
   float getPlayerX() const;
 
+  void startMusic(const char*const*, unsigned);
+
 private:
   float getNearClippingPlane() const;
   static void playerDeath(void*);

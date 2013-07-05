@@ -24,6 +24,9 @@ using namespace std;
 static SDL_Surface* screen;
 static unsigned screenw, screenh;
 
+static const char*const* musicList;
+static unsigned musicListLen;
+
 static void init(const char*const* argv, unsigned argc);
 static void run();
 static void shutdown();
@@ -73,11 +76,19 @@ static void init(const char*const* argv, unsigned argc) {
   #ifdef HAVE_FEENABLEEXCEPT
   assert(-1 != feenableexcept(FE_DIVBYZERO | FE_OVERFLOW | FE_INVALID));
   #endif
+
+  /* TODO: Actually parse command-line arguments */
+  musicList = argv + 1;
+  musicListLen = argc - 1;
 }
 
 void run() {
   auto_ptr<Game> gamePtr(new Game);
   Game& game(*gamePtr);
+
+  if (musicList)
+    game.startMusic(musicList, musicListLen);
+
   bool paused = false;
   Uint32 lastUpdate = SDL_GetTicks();
   while (game.running()) {
