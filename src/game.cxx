@@ -13,7 +13,7 @@
 #include "globals.hxx"
 #include "music_player.hxx"
 
-#define ACCEL -0.15f
+#define ACCEL -0.015f
 #define MIN_CONV 0.5f
 #define MAX_CONV 2.5f
 
