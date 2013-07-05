@@ -5,12 +5,16 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <cerrno>
+#include <iostream>
 
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
 
 #include "vorbis_decoder.hxx"
 #include "music_player.hxx"
+
+using namespace std;
 
 class VorbisDecoder: public MusicDecoder {
   OggVorbis_File decoder;
@@ -34,12 +38,29 @@ MusicDecoder* openVorbisDecoder(const char* path) {
 }
 
 VorbisDecoder::VorbisDecoder(const char* path) {
-  if (ov_fopen(path, &decoder))
+  errno = 0;
+
+  if (int ret = ov_fopen(path, &decoder)) {
+    cerr << "Unable to open " << path << " for decoding: ";
+    if (errno)
+      cerr << strerror(errno);
+    else
+      switch (ret) {
+      case OV_EREAD: cerr << "Unable to read from file";
+      case OV_ENOTVORBIS: cerr << "Not a valid vorbis file";
+      case OV_EVERSION: cerr << "Bad vorbis version";
+      case OV_EBADHEADER: cerr << "Corrupt vorbis headers";
+      case OV_EFAULT: cerr << "Internal logic error";
+      default: cerr << "Unknown (code " << ret << ")";
+      }
+    cerr << endl;
+
     /* Just throw something since we can't fulfil the contract.
      * openVorbisDecoder() just catches everything, so this value doesn't
      * matter.
      */
     throw 0;
+  }
 }
 
 VorbisDecoder::~VorbisDecoder() {
