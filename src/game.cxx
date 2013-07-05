@@ -34,7 +34,7 @@ Game::~Game() {}
 
 void Game::update(float et) {
   float distortionDiff = targetConvulsion - currentConvulsion;
-  distortionDiff *= pow(0.2f, et);
+  distortionDiff *= pow(0.1f, et);
   currentConvulsion = targetConvulsion - distortionDiff;
   distortion.setConvulsionMult(currentConvulsion);
 
