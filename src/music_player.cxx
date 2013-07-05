@@ -54,7 +54,7 @@ unsigned MusicDecoder::resample(Sint16* buff, unsigned len, unsigned maxlen,
     //We'll be expanding the stream, so work right to left
     for (unsigned i = outlen-2; i < outlen; i -= 2) {
       unsigned src = i * iratio;
-      if (src & 1) ++src;
+      if (src & 1) --src;
       if (src != i)
         memcpy(buff+i, buff+src, 2 * sizeof(*buff));
     }
