@@ -21,6 +21,7 @@ using namespace std;
 
 Game::Game()
 : currentConvulsion(0), targetConvulsion(0),
+  playerAmplitude(0),
   enemyFactory(*this),
   speed(-2.0f)
 {
@@ -36,6 +37,9 @@ void Game::update(float et) {
   distortionDiff *= pow(0.2f, et);
   currentConvulsion = targetConvulsion - distortionDiff;
   distortion.setConvulsionMult(currentConvulsion);
+
+  if (player)
+    player->setAmplitude(playerAmplitude);
 
   enemyFactory.update(et, -speed);
   tunnel.update(et);
@@ -118,7 +122,10 @@ static void amplitudeCallback(void* thisVoid, float amp) {
 }
 
 void Game::amplitude(float amp) {
+  // XXX Minor threading issues here; we could see a partial floating-point
+  // update. Oh well.
   targetConvulsion = amp*(MAX_CONV - MIN_CONV) + MIN_CONV;
+  playerAmplitude = amp;
 }
 
 void Game::startMusic(const char*const* list, unsigned len) {

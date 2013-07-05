@@ -2,6 +2,8 @@
 #include <config.h>
 #endif
 
+#include <cmath>
+
 #include "projectile.hxx"
 #include "player.hxx"
 #include "model.hxx"
@@ -70,7 +72,7 @@ Player::Player(GameField* field, const Distortion* dist, float offset,
                  playerModel, dist),
   vy(0), notifyOnDeath(notifier), notifyObject(notifyee),
   shotSpeed(0.0f),
-  timeUntilShot(0.5f)
+  prevAmplitude(0), newAmplitude(0), shotThreshhold(1)
 {
 }
 
@@ -96,14 +98,18 @@ void Player::update(float et) {
   vy += GRAVITY*et;
   moveTo(x, y+vy*et, z, true);
 
-  timeUntilShot -= et;
-  if (timeUntilShot < 0) {
+  shotThreshhold *= pow(0.15f, et);
+  if (shotThreshhold < newAmplitude - prevAmplitude) {
     field->add(new Projectile(field, distortion, this,
                               x, y, z, -1, shotSpeed));
-    timeUntilShot += 0.333f;
+    shotThreshhold += 1.0;
   }
 }
 
 void Player::collideWith(GameObject* go) {
   go->collideWithPlayer(this);
+}
+
+void Player::setAmplitude(float amp) {
+  newAmplitude = amp;
 }

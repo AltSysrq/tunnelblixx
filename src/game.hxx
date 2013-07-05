@@ -16,6 +16,7 @@ public:
   GameField field;
   Mixer mixer;
   float currentConvulsion, targetConvulsion;
+  float playerAmplitude;
 
 private:
   EnemyFactory enemyFactory;

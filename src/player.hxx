@@ -11,8 +11,8 @@ class Player: public ModelledObject {
   void* notifyObject;
   float shotSpeed;
 
-  //Delete later when music-based shot timing is used
-  float timeUntilShot;
+  float prevAmplitude, newAmplitude;
+  float shotThreshhold;
 
 public:
   Player(GameField* field, const Distortion*, float offset,
@@ -25,6 +25,7 @@ public:
   void move(float x);
   void advance(float z, float offset);
   void jump();
+  void setAmplitude(float);
 };
 
 #endif /* PLAYER_HXX_ */
