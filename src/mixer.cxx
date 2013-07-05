@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define BUFFER_SIZE 4096
+#define BUFFER_SIZE 1024
 SDL_AudioSpec Mixer::audioSpec = {
   AUDIO_SAMPLE_RATE, AUDIO_S16SYS, 2, 0, BUFFER_SIZE, 0 /* padding */,
   2*BUFFER_SIZE,
