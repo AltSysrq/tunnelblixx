@@ -11,6 +11,7 @@
 #include "game.hxx"
 #include "game_field.hxx"
 #include "cactus.hxx"
+#include "fire_fern.hxx"
 
 using namespace std;
 
@@ -49,6 +50,7 @@ EnemyFactory::EnemyFactory(Game& g)
 : game(g)
 {
   factories.push_back(new Factory<Cactus>(4.0f, 1.0f));
+  factories.push_back(new Factory<FireFern>(5.0f, 3.0f));
 }
 
 static void delete_it(AbstractEnemyFactory* it) { delete it; }
