@@ -105,6 +105,7 @@ signed VorbisDecoder::decode(Sint16* dst, unsigned maxlen) {
     memcpy(dst, &tempBuff[0], samplePointsRead * 2);
     dst += samplePointsRead;
     maxlen -= samplePointsRead;
+    nread += samplePointsRead;
   }
 
   if (nread)
