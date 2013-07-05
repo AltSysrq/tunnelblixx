@@ -16,16 +16,23 @@ using namespace std;
 
 unsigned MusicDecoder::select(Sint16* dst, unsigned lc, unsigned rc, unsigned n,
                               unsigned len) const {
-  unsigned total = 0;
-  //If there are any partial samples at the end, just drop them
-  //(Hence i+n <= len)
-  for (unsigned i = 0; i+n <= len; i += n) {
-    *dst++ = tempBuff[i+lc];
-    *dst++ = tempBuff[i+rc];
-    ++total;
-  }
+  if (n > 1) {
+    unsigned total = 0;
+    //If there are any partial samples at the end, just drop them
+    //(Hence i+n <= len)
+    for (unsigned i = 0; i+n <= len; i += n) {
+      *dst++ = tempBuff[i+lc];
+      *dst++ = tempBuff[i+rc];
+      ++total;
+    }
 
-  return total * 2;
+    return total * 2;
+  } else {
+    /* Upselecting mono to stereo */
+    for (unsigned i = len*2 - 2; i < len*2; i -= 2)
+      dst[i] = dst[i+1] = dst[i/2];
+    return len*2;
+  }
 }
 
 unsigned MusicDecoder::resample(Sint16* buff, unsigned len, unsigned maxlen,
