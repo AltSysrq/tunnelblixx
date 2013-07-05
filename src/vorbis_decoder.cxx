@@ -88,7 +88,7 @@ signed VorbisDecoder::decode(Sint16* dst, unsigned maxlen) {
 
     int bytesRead = ov_read(&decoder, (char*)&tempBuff[0], maxSamplePoints * 2,
                             isLittleEndian? 0 : 1, 2, 1, &currentStream);
-    if (!bytesRead)
+    if (bytesRead <= 0)
       break;
 
     unsigned samplePointsRead = bytesRead / 2;
