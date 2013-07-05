@@ -127,13 +127,15 @@ signed MusicPlayer::getAudio(Sint16* dst, unsigned len) {
     for (unsigned i = 0; decoders[i].extension; ++i) {
       if (0 == strcmp(ext, decoders[i].extension)) {
         decoder = decoders[i].open(path);
-        break;
+        goto have_decoder;
       }
     }
 
     //No decoder for this extension
     cerr << "Note: File type " << ext << " unknown" << endl;
   }
+
+  have_decoder:
 
   //If opening that was unsuccessful, return no audio this frame and try again
   //next frame
