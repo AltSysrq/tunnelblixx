@@ -20,7 +20,7 @@
 using namespace std;
 
 Game::Game()
-: currentConvulsion(0), targetConvulsion(0),
+: currentConvulsion(0), targetConvulsion(1),
   playerAmplitude(0),
   enemyFactory(*this),
   speed(-2.0f)
