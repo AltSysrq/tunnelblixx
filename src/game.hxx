@@ -15,6 +15,7 @@ public:
   Distortion distortion;
   GameField field;
   Mixer mixer;
+  float currentConvulsion, targetConvulsion;
 
 private:
   EnemyFactory enemyFactory;

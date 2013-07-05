@@ -6,6 +6,7 @@
 #include <SDL.h>
 
 #include <algorithm>
+#include <cmath>
 
 #include "game.hxx"
 #include "player.hxx"
@@ -19,7 +20,8 @@
 using namespace std;
 
 Game::Game()
-: enemyFactory(*this),
+: currentConvulsion(0), targetConvulsion(0),
+  enemyFactory(*this),
   speed(-2.0f)
 {
   player = new Player(&field, &distortion, getNearClippingPlane(),
@@ -30,6 +32,11 @@ Game::Game()
 Game::~Game() {}
 
 void Game::update(float et) {
+  float distortionDiff = targetConvulsion - currentConvulsion;
+  distortionDiff *= pow(0.2f, et);
+  currentConvulsion = targetConvulsion - distortionDiff;
+  distortion.setConvulsionMult(currentConvulsion);
+
   enemyFactory.update(et, -speed);
   tunnel.update(et);
   field.update(et);
@@ -111,7 +118,7 @@ static void amplitudeCallback(void* thisVoid, float amp) {
 }
 
 void Game::amplitude(float amp) {
-  distortion.setConvulsionMult(amp*(MAX_CONV - MIN_CONV) + MIN_CONV);
+  targetConvulsion = amp*(MAX_CONV - MIN_CONV) + MIN_CONV;
 }
 
 void Game::startMusic(const char*const* list, unsigned len) {
