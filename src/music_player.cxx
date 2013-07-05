@@ -49,7 +49,7 @@ unsigned MusicDecoder::resample(Sint16* buff, unsigned len, unsigned maxlen,
       unsigned src = i * iratio;
       if (src & 1) ++src;
       if (src != i)
-        memcpy(buff+src, buff+i, 2 * sizeof(*buff));
+        memcpy(buff+i, buff+src, 2 * sizeof(*buff));
     }
   } else {
     //Contracting stream, work from left to right
