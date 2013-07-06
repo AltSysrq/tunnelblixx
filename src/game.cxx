@@ -72,9 +72,19 @@ void Game::configureGL() {
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
-  glFrustum(-1, 1, -vheight, vheight, getNearClippingPlane(), 128.0f);
+  glFrustum(-1/10.0f, 1/10.0f, -vheight/10.0f, vheight/10.0f,
+            getNearClippingPlane(), 128.0f);
   glScalef(2.0f, 2.0f, 1);
-  glTranslatef(-0.5f, -vheight/2.0f, 0);
+  float tx, ty;
+  if (player) {
+    tx = - (player->x - 0.5f)*0.9f - 0.5f;
+    ty = -vheight/3.0f - player->y;
+  } else {
+    tx = -0.5f;
+    ty = -vheight/3.0f;
+  }
+
+  glTranslatef(tx, ty, -0.5f);
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 }
@@ -106,7 +116,7 @@ void Game::playerDeath(void* that) {
 }
 
 float Game::getNearClippingPlane() const {
-  return -1.5f/speed;
+  return -1.5f/speed/10.0f;
 }
 
 float Game::getSpawnDistance() const {
