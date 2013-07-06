@@ -157,11 +157,19 @@ signed MusicPlayer::getAudio(Sint16* dst, unsigned len) {
     decoder = NULL;
     ret = 0;
   } else {
-    /* Determine amplitude and notify callback */
+    /* Determine amplitude and notify callback. To calculate amplitude, use the
+     * root mean square.
+     */
     float amp = 0;
-    for (unsigned i = 0; i < (unsigned)ret; ++i)
-      amp += fabs(dst[i] / (float)ret);
-    amplitudeCallback(callbackUserdata, amp / 32768.0f);
+    for (unsigned i = 0; i < (unsigned)ret; ++i) {
+      float curr = dst[i];
+      amp += curr*curr / 32768.0f / 32768.0f;
+    }
+
+    amp /= ret;
+    amp = sqrtf(amp);
+
+    amplitudeCallback(callbackUserdata, amp);
   }
 
   return ret;
