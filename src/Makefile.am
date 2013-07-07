@@ -16,6 +16,7 @@ tunnelblick_SOURCES= \
   cactus.cxx \
   fire_fern.cxx \
   beetle.cxx \
+  pillar.cxx \
   enemy_factory.cxx \
   mixer.cxx \
   sound_effect.cxx \

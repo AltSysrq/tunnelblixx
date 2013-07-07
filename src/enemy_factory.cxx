@@ -13,8 +13,11 @@
 #include "cactus.hxx"
 #include "fire_fern.hxx"
 #include "beetle.hxx"
+#include "pillar.hxx"
 
 using namespace std;
+
+#define PILLAR_INTERVAL 10.0f
 
 class AbstractEnemyFactory {
 public:
@@ -48,7 +51,7 @@ public:
 };
 
 EnemyFactory::EnemyFactory(Game& g)
-: game(g)
+: game(g), timeUntilPillar(PILLAR_INTERVAL)
 {
   factories.push_back(new Factory<Cactus>(4.0f, 1.0f));
   factories.push_back(new Factory<FireFern>(5.0f, 3.0f));
@@ -66,5 +69,12 @@ void EnemyFactory::update(float et, float speed) {
     GameObject* go = (*it)->update(et, speed, game);
     if (go)
       game.field.add(go);
+  }
+
+  timeUntilPillar -= et;
+  if (timeUntilPillar < 0) {
+    timeUntilPillar += PILLAR_INTERVAL;
+
+    game.field.add(new Pillar(game));
   }
 }

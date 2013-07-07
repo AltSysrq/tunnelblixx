@@ -10,6 +10,7 @@ class AbstractEnemyFactory;
 class EnemyFactory {
   Game& game;
   std::list<AbstractEnemyFactory*> factories;
+  float timeUntilPillar;
 
 public:
   EnemyFactory(Game&);
