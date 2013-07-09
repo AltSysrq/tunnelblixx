@@ -87,3 +87,4 @@ void Confetti::draw() {
 }
 
 void Confetti::collideWith(GameObject*) {}
+bool Confetti::isCollideable() const { return false; }

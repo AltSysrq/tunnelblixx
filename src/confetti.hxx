@@ -19,6 +19,7 @@ public:
   virtual void update(float);
   virtual void draw();
   virtual void collideWith(GameObject*);
+  virtual bool isCollideable() const;
 };
 
 #endif /* CONFETTI_HXX_ */
