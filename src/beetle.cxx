@@ -3,9 +3,12 @@
 #endif
 
 #include <cmath>
+#include <cstdlib>
 
 #include "model.hxx"
 #include "beetle.hxx"
+
+using namespace std;
 
 #define DIM 0.1f
 #define SPEED 0.5f
