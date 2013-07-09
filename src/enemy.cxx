@@ -11,6 +11,7 @@
 #include "player.hxx"
 #include "mixer.hxx"
 #include "sound_effect.hxx"
+#include "confetti.hxx"
 
 using namespace std;
 
@@ -44,8 +45,8 @@ void Enemy::collideWithProjectile(Projectile*) {
                       (short)(0x7FFF / max(1.0f, -z/10.0f)));
     //Spawn confetti
     const float* colour = getColour();
-    //field.add(new Confetti(field, x, y, z, colour[0], colour[1], colour[2],
-    //                       &game.distortion));
+    field->add(new Confetti(field, x, y, z, colour[0], colour[1], colour[2],
+                            &game.distortion));
     //Create pulses
     unsigned initialCol = (unsigned)(x / Tunnel::gsqsz);
     float speed = getPulseSpeed();

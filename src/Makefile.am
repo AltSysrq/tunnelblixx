@@ -18,6 +18,7 @@ tunnelblick_SOURCES= \
   beetle.cxx \
   pillar.cxx \
   enemy_factory.cxx \
+  confetti.cxx \
   mixer.cxx \
   sound_effect.cxx \
   music_player.cxx \
