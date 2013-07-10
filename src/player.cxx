@@ -3,7 +3,6 @@
 #endif
 
 #include <cmath>
-#include <cassert>
 
 #include "projectile.hxx"
 #include "player.hxx"
@@ -78,7 +77,6 @@ Player::Player(GameField* field, const Distortion* dist, float offset,
 }
 
 Player::~Player() {
-  assert(!alive);
 }
 
 void Player::kill() {

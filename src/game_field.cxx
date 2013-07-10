@@ -30,6 +30,7 @@ void GameField::update(float et) {
     if (!(*it)->isAlive()) {
       delete *it;
       it = objects.erase(it);
+      --it;
     }
   }
 
@@ -46,6 +47,7 @@ void GameField::translateZ(float amt) {
     if ((*it)->z > 0) {
       delete *it;
       it = objects.erase(it);
+      --it;
     }
   }
 }
