@@ -17,6 +17,7 @@ class Player: public ModelledObject {
 public:
   Player(GameField* field, const Distortion*, float offset,
          void (*)(void*), void*);
+  virtual ~Player();
   void kill();
 
   virtual void update(float et);

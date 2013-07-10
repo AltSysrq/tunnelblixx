@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <cassert>
 
 #include "game.hxx"
 #include "player.hxx"
@@ -56,6 +57,8 @@ void Game::update(float et) {
     player->advance(shift, nearDelta);
     if (player)
       shift = player->getZ() - oldz + nearDelta;
+
+    assert(!player || shift < -player->getZ());
   }
 
   field.translateZ(shift);
