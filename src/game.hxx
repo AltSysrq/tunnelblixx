@@ -36,6 +36,7 @@ public:
   bool running() const;
   float getSpawnDistance() const;
   float getPlayerX() const;
+  float getSpeed() const { return speed; }
 
   void startMusic(const char*const*, unsigned);
 
