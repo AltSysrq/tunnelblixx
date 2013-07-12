@@ -16,6 +16,7 @@
 #include "pillar.hxx"
 #include "hurtle.hxx"
 #include "bat.hxx"
+#include "flea.hxx"
 
 using namespace std;
 
@@ -60,6 +61,7 @@ EnemyFactory::EnemyFactory(Game& g)
   factories.push_back(new Factory<Beetle>(7.0f, 2.5f));
   factories.push_back(new Factory<Hurtle>(20.0f, 3.5f));
   factories.push_back(new Factory<Bat>(12.0f, 2.75f));
+  factories.push_back(new Factory<Flea>(10.0f, 4.0f));
 }
 
 static void delete_it(AbstractEnemyFactory* it) { delete it; }
