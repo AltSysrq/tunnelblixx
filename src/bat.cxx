@@ -145,7 +145,7 @@ Bat::Bat(Game& game_)
 : Enemy(game_, flyingBatModel, 1),
   isFlying(true),
   game(game_),
-  vy(0), vz(-game_.getSpeed()/2.0f)
+  vy(0), vz(game_.getSpeed()/2.0f)
 {
   y = 0.4f + h/2;
 }
