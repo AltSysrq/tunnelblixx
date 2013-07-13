@@ -56,7 +56,7 @@ public:
 EnemyFactory::EnemyFactory(Game& g)
 : game(g), timeUntilPillar(PILLAR_INTERVAL)
 {
-  factories.push_back(new Factory<Cactus>(4.0f, 1.0f));
+  factories.push_back(new Factory<Cactus>(5.5f, 1.0f));
   factories.push_back(new Factory<FireFern>(5.0f, 3.0f));
   factories.push_back(new Factory<Beetle>(7.0f, 2.5f));
   factories.push_back(new Factory<Hurtle>(20.0f, 3.5f));
